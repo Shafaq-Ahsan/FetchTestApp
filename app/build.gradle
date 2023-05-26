@@ -1,0 +1,142 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    compileSdkVersion 32
+
+    defaultConfig {
+        applicationId "com.app.fetchTestApp"
+        minSdkVersion 21
+        targetSdkVersion 32
+        versionCode 1
+        buildToolsVersion rootProject.buildToolsVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    flavorDimensions "server"
+
+    productFlavors {
+        dev {
+            versionName "1.1"
+            dimension "server"
+            applicationIdSuffix ".dev"
+
+        }
+
+        stage {
+            versionName "1.0"
+            dimension "server"
+            applicationIdSuffix ".stage"
+
+        }
+        live {
+            versionName "1.0"
+            dimension "server"
+
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+}
+
+dependencies {
+
+    // For Kotlin
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$kotlin_core"
+    implementation "androidx.appcompat:appcompat:$appcompact_version"
+    implementation "androidx.constraintlayout:constraintlayout:$version_constraint"
+    //Api Module
+    implementation project(':network_module')
+
+    //shimmer
+    implementation "com.facebook.shimmer:shimmer:$version_shimmer"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
+
+    //Gson
+    implementation "com.google.code.gson:gson:$version_gson"
+
+    //Kotlin Reflect
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$version_kotlin_reflect"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+    implementation "androidx.legacy:legacy-support-v4:$support_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_core"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+
+    //OK HTTP
+    implementation "com.squareup.okhttp3:okhttp:$version_ok_http"
+
+//    //GLIDE
+//    implementation "com.github.bumptech.glide:glide:$version_glide"
+//    kapt "com.github.bumptech.glide:compiler:$version_glide"
+
+    //material Design
+    implementation 'com.google.android.material:material:1.2.1'
+
+    //noinspection GradleCompatible
+    implementation "com.android.support:design:$support_design"
+
+    //testing Dependencies
+    testImplementation "junit:junit:$junit"
+    testImplementation "org.mockito:mockito-core:$mokito_core"
+    testImplementation 'org.robolectric:robolectric:4.2.1'
+    testImplementation "androidx.test:core:$test_core"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$jupiter_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$jupiter_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlin_core"
+    testImplementation "android.arch.core:core-testing:$core_version"
+    implementation 'net.bytebuddy:byte-buddy:1.9.10'
+    testImplementation project(path: ':app')
+
+
+    androidTestImplementation "androidx.test.ext:junit:$junit_ext"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlin_core"
+    androidTestImplementation "android.arch.core:core-testing:$core_version"
+    androidTestImplementation "org.mockito:mockito-core:$mokito_core"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$esperesso_version"
+    androidTestImplementation "androidx.test:runner:$test_core"
+    androidTestImplementation "androidx.test:rules:$test_core"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$esperesso_version"
+    androidTestImplementation "org.mockito:mockito-android:$mokito_android"
+
+
+
+}
